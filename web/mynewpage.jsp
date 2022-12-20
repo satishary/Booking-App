@@ -1,30 +1,36 @@
+<%@page import="utilities.Utilities"%>
 <%@include file="header.jsp" %>
 <title>Bootstrap demo</title>
 </head>
 <body>
     <%@include file="menu.jsp" %>
-<!--Content-->
-    <div class="container text-center">
-        <div class="row">
-            <div class="col">
-                1 of 2
-            </div>
-            <div class="col">
-                2 of 2
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                1 of 3
-            </div>
-            <div class="col">
-                2 of 3
-            </div>
-            <div class="col">
-                3 of 3
-            </div>
-        </div>
-    </div>
+    <!--Content-->
+<body>
+    <%
+        String otp = "";
+        boolean ispostback = false;
+        if (request.getParameter("check") != null) {
+            ispostback = true;
+        }
+        if (ispostback) {
+            otp = Utilities.otp(5);
+        }
+    %>
+    <center>
+    <h1>Booking App</h1>
 
-<!--Content-->
-    <%@include  file="footer.jsp" %>
+
+    <form method="post"><input name="check" type="hidden"/>
+        mobile no. <input type="number" value="<%=otp%>">   
+        <br>
+        <input name="option" type="submit" value="otp">
+        <br>
+        mobile otp <input type="number">
+        <br>
+        <input type="submit">
+        <br>
+    </form>
+</body>
+</html>
+</center>
+<%@include  file="footer.jsp" %>
