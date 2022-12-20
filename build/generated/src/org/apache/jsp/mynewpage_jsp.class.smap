@@ -1,12 +1,12 @@
 SMAP
-test_jsp.java
+mynewpage_jsp.java
 JSP
 *S JSP
 *F
 + 0 header.jsp
 header.jsp
-+ 1 test.jsp
-test.jsp
++ 1 mynewpage.jsp
+mynewpage.jsp
 + 2 menu.jsp
 menu.jsp
 + 3 footer.jsp
