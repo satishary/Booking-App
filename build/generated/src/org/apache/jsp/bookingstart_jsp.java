@@ -3,9 +3,11 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.sql.PreparedStatement;
+import databasepackage.DbConnect;
 import utilities.Utilities;
 
-public final class mynewpage_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class bookingstart_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -49,7 +51,9 @@ public final class mynewpage_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
-      out.write('\n');
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("<!doctype html>\n");
       out.write("<html lang=\"en\">\n");
       out.write("  <head>\n");
@@ -64,7 +68,7 @@ public final class mynewpage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n");
       out.write("  <div class=\"container-fluid\">\n");
       out.write("     <a class=\"navbar-brand\" href=\"#\">Booking App</a>\n");
-      out.write("    <a class=\"navbar-brand\" href=\"home.jsp\">Home</a>\n");
+      out.write("    <a class=\"navbar-brand\" href=\"#\">Home</a>\n");
       out.write("    <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNavDarkDropdown\" aria-controls=\"navbarNavDarkDropdown\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n");
       out.write("      <span class=\"navbar-toggler-icon\"></span>\n");
       out.write("    </button>\n");
@@ -72,12 +76,11 @@ public final class mynewpage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("      <ul class=\"navbar-nav\">\n");
       out.write("        <li class=\"nav-item dropdown\">\n");
       out.write("          <a class=\"nav-link dropdown-toggle\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n");
-      out.write("            Dropdown\n");
+      out.write("            Booking Start\n");
       out.write("          </a>\n");
       out.write("          <ul class=\"dropdown-menu dropdown-menu-dark\">\n");
-      out.write("            <li><a class=\"dropdown-item\" href=\"#\">Action</a></li>\n");
-      out.write("            <li><a class=\"dropdown-item\" href=\"#\">Another action</a></li>\n");
-      out.write("            <li><a class=\"dropdown-item\" href=\"#\">Something else here</a></li>\n");
+      out.write("              <li><a class=\"dropdown-item\" href=\"bookingstart.jsp\"> Start Booking</a></li>\n");
+      out.write("              <li><a class=\"dropdown-item\" href=\"validation.jsp\">validation</a></li>\n");
       out.write("          </ul>\n");
       out.write("        </li>\n");
       out.write("      </ul>\n");
@@ -89,16 +92,28 @@ public final class mynewpage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<body>\n");
       out.write("    ");
 
-        String otp = "",number="";
+        String otp = "",mobile="",result="";
         boolean ispostback = false;
         if (request.getParameter("check") != null) {
             ispostback = true;
+           
         }
         if (ispostback) {
-            otp = Utilities.otp(5);
+                 try{
+                   otp = Utilities.otp(5);
+            mobile=request.getParameter("mobile");
+            PreparedStatement ps=DbConnect.connect().prepareStatement("insert into bookings values=?");
+           ps.setString(1,mobile); 
+           result="Inserted";
+             }
+             catch(Exception ex){
+                     System.out.println("ex");
+                     result=ex.getMessage();
+                     }
         }
     
       out.write("\n");
+      out.write("    \n");
       out.write("    <center>\n");
       out.write("          <br>\n");
       out.write("    <br>\n");
@@ -107,19 +122,23 @@ public final class mynewpage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <div class=\"row\">\n");
       out.write("            <div class=\"col-md-3\"></div\n");
       out.write("            <div class=\"col-md-6\"></div>\n");
-      out.write("    <form method=\"post\"><input name=\"check\" type=\"hidden\"/>\n");
+      out.write("    <form method=\"post\">\n");
+      out.write("        ");
+      out.print(result);
+      out.write("\n");
+      out.write("        <input name=\"check\" type=\"hidden\"/>\n");
       out.write("        <div class=\"mb-3\">\n");
       out.write("  <label for=\"exampleFormControlInput1\" class=\"form-label\">Enter mobile number</label>\n");
-      out.write("  <input type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"Enter mobile number\"value=\"");
-      out.print(number);
-      out.write("\"autocomplet=\"off\">\n");
+      out.write("  <input name=\"number\" type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"Enter mobile number\" value=\"");
+      out.print(mobile);
+      out.write("\">\n");
       out.write("</div>\n");
       out.write("   <div class=\"col-md-3\">\n");
       out.write("  <input  type=\"submit\" class=\"form-control btn btn-danger\" id=\"exampleFormControlInput1\" value=\"Get Otp\">\n");
       out.write("</div>\n");
       out.write(" <div class=\"col\">\n");
       out.write("  <label for=\"exampleFormControlInput1\" class=\"form-label\">OTP</label>\n");
-      out.write("  <input name=\"number\" type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"Enter OTP\"value=\"");
+      out.write("  <input name=\"otp\" name=\"text\" readonly type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"Enter OTP\"value=\"");
       out.print(otp);
       out.write("\">\n");
       out.write("</div>\n");
