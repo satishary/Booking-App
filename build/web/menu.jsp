@@ -7,15 +7,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
       <ul class="navbar-nav">
+          <li> <a class="nav-link" href="bookingstart.jsp">Booking Start</a></li>
+          
+        <li>
+            <a class="nav-link" href="validation.jsp">Validate OTP</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Booking Start
           </a>
+            
           <ul class="dropdown-menu dropdown-menu-dark">
               <li><a class="dropdown-item" href="bookingstart.jsp"> Start Booking</a></li>
               <li><a class="dropdown-item" href="validation.jsp">validation</a></li>
           </ul>
         </li>
+        
+            
       </ul>
     </div>
   </div>

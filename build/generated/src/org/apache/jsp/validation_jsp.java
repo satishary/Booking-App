@@ -96,11 +96,8 @@ public final class validation_jsp extends org.apache.jasper.runtime.HttpJspBase
         if (request.getParameter("check") != null) {
             ispostback = true;        
         }
-        if (ispostback) {
-            mobile=request.getParameter("mobile");
-            PreparedStatement ps=DbConnect.connect().prepareStatement("insert into bookings values=?");
-           ps.setString(1,mobile);  
-        }
+        
+        
     
       out.write("\n");
       out.write("    <center>\n");

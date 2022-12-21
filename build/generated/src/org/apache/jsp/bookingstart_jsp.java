@@ -74,15 +74,23 @@ public final class bookingstart_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("    </button>\n");
       out.write("    <div class=\"collapse navbar-collapse\" id=\"navbarNavDarkDropdown\">\n");
       out.write("      <ul class=\"navbar-nav\">\n");
+      out.write("          <li> <a class=\"nav-link\" href=\"bookingstart.jsp\">Booking Start</a></li>\n");
+      out.write("          \n");
+      out.write("        <li>\n");
+      out.write("            <a class=\"nav-link\" href=\"validation.jsp\">Validate OTP</a>\n");
+      out.write("        </li>\n");
       out.write("        <li class=\"nav-item dropdown\">\n");
       out.write("          <a class=\"nav-link dropdown-toggle\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n");
       out.write("            Booking Start\n");
       out.write("          </a>\n");
+      out.write("            \n");
       out.write("          <ul class=\"dropdown-menu dropdown-menu-dark\">\n");
       out.write("              <li><a class=\"dropdown-item\" href=\"bookingstart.jsp\"> Start Booking</a></li>\n");
       out.write("              <li><a class=\"dropdown-item\" href=\"validation.jsp\">validation</a></li>\n");
       out.write("          </ul>\n");
       out.write("        </li>\n");
+      out.write("        \n");
+      out.write("            \n");
       out.write("      </ul>\n");
       out.write("    </div>\n");
       out.write("  </div>\n");
@@ -92,65 +100,70 @@ public final class bookingstart_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("<body>\n");
       out.write("    ");
 
-        String otp = "",mobile="",result="";
+        String otp = "", mobile = "", result = "";
         boolean ispostback = false;
         if (request.getParameter("check") != null) {
             ispostback = true;
-           
+
         }
         if (ispostback) {
-                 try{
-                   otp = Utilities.otp(5);
-            mobile=request.getParameter("mobile");
-            PreparedStatement ps=DbConnect.connect().prepareStatement("insert into bookings values=?");
-           ps.setString(1,mobile); 
-           result="Inserted";
-             }
-             catch(Exception ex){
-                     System.out.println("ex");
-                     result=ex.getMessage();
-                     }
+            try {
+                otp = Utilities.otp(5);
+                mobile = request.getParameter("mobile");
+//                PreparedStatement ps = DbConnect.connect().prepareStatement("insert into bookings values=?");
+//                ps.setString(1, mobile);
+//                ps.executeUpdate();
+                out.println(mobile);
+                session.setAttribute("mobile", mobile);
+                session.setAttribute("otp", otp);
+                result = "Inserted";
+            } catch (Exception ex) {
+                System.out.println("ex");
+                result = ex.getMessage();
+            }
         }
     
       out.write("\n");
-      out.write("    \n");
-      out.write("    <center>\n");
-      out.write("          <br>\n");
+      out.write("\n");
+      out.write("<center>\n");
+      out.write("    <br>\n");
       out.write("    <br>\n");
       out.write("    <h1>Booking App</h1>\n");
       out.write("    <div class=\"container col-md-3\">\n");
       out.write("        <div class=\"row\">\n");
       out.write("            <div class=\"col-md-3\"></div\n");
       out.write("            <div class=\"col-md-6\"></div>\n");
-      out.write("    <form method=\"post\">\n");
-      out.write("        ");
+      out.write("            <form method=\"post\">\n");
+      out.write("                ");
       out.print(result);
       out.write("\n");
-      out.write("        <input name=\"check\" type=\"hidden\"/>\n");
-      out.write("        <div class=\"mb-3\">\n");
-      out.write("  <label for=\"exampleFormControlInput1\" class=\"form-label\">Enter mobile number</label>\n");
-      out.write("  <input name=\"number\" type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"Enter mobile number\" value=\"");
+      out.write("                <input name=\"check\" type=\"hidden\"/>\n");
+      out.write("                <div class=\"mb-3\">\n");
+      out.write("                    <label for=\"exampleFormControlInput1\" class=\"form-label\">Enter mobile number</label>\n");
+      out.write("                    <input name=\"mobile\" type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"Enter mobile number\" value=\"");
       out.print(mobile);
       out.write("\">\n");
-      out.write("</div>\n");
-      out.write("   <div class=\"col-md-3\">\n");
-      out.write("  <input  type=\"submit\" class=\"form-control btn btn-danger\" id=\"exampleFormControlInput1\" value=\"Get Otp\">\n");
-      out.write("</div>\n");
-      out.write(" <div class=\"col\">\n");
-      out.write("  <label for=\"exampleFormControlInput1\" class=\"form-label\">OTP</label>\n");
-      out.write("  <input name=\"otp\" name=\"text\" readonly type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"Enter OTP\"value=\"");
+      out.write("                </div>\n");
+      out.write("                <div class=\"col-md-3\">\n");
+      out.write("                    <input  type=\"submit\" class=\"form-control btn btn-danger\" id=\"exampleFormControlInput1\" value=\"Get Otp\">\n");
+      out.write("                </div>\n");
+      out.write("                <div class=\"col\">\n");
+      out.write("                    <label for=\"exampleFormControlInput1\" class=\"form-label\">OTP</label>\n");
+      out.write("                    <input name=\"otp\" name=\"text\" readonly type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"Enter OTP\"value=\"");
       out.print(otp);
       out.write("\">\n");
-      out.write("</div>\n");
-      out.write("<br>\n");
-      out.write("<div class=\"col-md-3\">\n");
-      out.write("<input type=\"submit\"class=\"form-control btn btn-primary\">\n");
-      out.write("</div>\n");
-      out.write("        <br>\n");
-      out.write("    </form>\n");
-      out.write("</body>\n");
-      out.write("</html>\n");
-      out.write("</center>\n");
+      out.write("                </div>\n");
+      out.write("                <br>\n");
+      out.write("                <div class=\"col-md-3\">\n");
+      out.write("                    <input type=\"submit\"class=\"form-control btn btn-primary\">\n");
+      out.write("                </div>\n");
+      out.write("                <br>\n");
+      out.write("            </form>\n");
+      out.write("                <a target=\"validatepage\" href=\"validation.jsp\">Validate Here</a>\n");
+      out.write("            </body>\n");
+      out.write("            </html>\n");
+      out.write("            </center>\n");
+      out.write("            ");
       out.write(" <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4\" crossorigin=\"anonymous\"></script>\n");
       out.write("  </body>\n");
       out.write("</html>");
