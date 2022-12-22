@@ -14,7 +14,7 @@ public final class container_jsp extends org.apache.jasper.runtime.HttpJspBase
   static {
     _jspx_dependants = new java.util.ArrayList<String>(3);
     _jspx_dependants.add("/header.jsp");
-    _jspx_dependants.add("/memu.jsp");
+    _jspx_dependants.add("/menu.jsp");
     _jspx_dependants.add("/footer.jsp");
   }
 
@@ -63,22 +63,30 @@ public final class container_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    ");
       out.write("<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n");
       out.write("  <div class=\"container-fluid\">\n");
-      out.write("    <a class=\"navbar-brand\" href=\"#\">Navbar</a>\n");
+      out.write("     <a class=\"navbar-brand\" href=\"#\">Booking App</a>\n");
+      out.write("    <a class=\"navbar-brand\" href=\"#\">Home</a>\n");
       out.write("    <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNavDarkDropdown\" aria-controls=\"navbarNavDarkDropdown\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n");
       out.write("      <span class=\"navbar-toggler-icon\"></span>\n");
       out.write("    </button>\n");
       out.write("    <div class=\"collapse navbar-collapse\" id=\"navbarNavDarkDropdown\">\n");
       out.write("      <ul class=\"navbar-nav\">\n");
+      out.write("          <li> <a class=\"nav-link\" href=\"bookingstart.jsp\">Booking Start</a></li>\n");
+      out.write("          \n");
+      out.write("        <li>\n");
+      out.write("            <a class=\"nav-link\" href=\"validation.jsp\">Validate OTP</a>\n");
+      out.write("        </li>\n");
       out.write("        <li class=\"nav-item dropdown\">\n");
       out.write("          <a class=\"nav-link dropdown-toggle\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n");
-      out.write("            Dropdown\n");
+      out.write("            Booking Start\n");
       out.write("          </a>\n");
+      out.write("            \n");
       out.write("          <ul class=\"dropdown-menu dropdown-menu-dark\">\n");
-      out.write("            <li><a class=\"dropdown-item\" href=\"#\">Action</a></li>\n");
-      out.write("            <li><a class=\"dropdown-item\" href=\"#\">Another action</a></li>\n");
-      out.write("            <li><a class=\"dropdown-item\" href=\"#\">Something else here</a></li>\n");
+      out.write("              <li><a class=\"dropdown-item\" href=\"bookingstart.jsp\"> Start Booking</a></li>\n");
+      out.write("              <li><a class=\"dropdown-item\" href=\"validation.jsp\">validation</a></li>\n");
       out.write("          </ul>\n");
       out.write("        </li>\n");
+      out.write("        \n");
+      out.write("            \n");
       out.write("      </ul>\n");
       out.write("    </div>\n");
       out.write("  </div>\n");

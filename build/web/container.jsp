@@ -2,7 +2,7 @@
 <title></title>
 </head>
 <body>
-    <%@include file="memu.jsp" %>
+    <%@include file="menu.jsp" %>
     <div class="container">
     </div>
     <%@include file="footer.jsp" %>
