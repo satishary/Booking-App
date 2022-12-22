@@ -7,7 +7,7 @@
     <!--Content-->
 <body>
     <%
-        String otp = "", mobile = "", result = "";
+        String sno="",otp = "", mobile = "", bookingdate="",result = "";
         boolean ispostback = false;
         if (request.getParameter("check") != null) {
             ispostback = true;
@@ -15,11 +15,12 @@
         }
         if (ispostback) {
             try {
-                otp = Utilities.otp(5);
                 mobile = request.getParameter("mobile");
-//                PreparedStatement ps = DbConnect.connect().prepareStatement("insert into bookings values=?");
-//                ps.setString(1, mobile);
-//                ps.executeUpdate();
+                 otp = Utilities.otp(6);
+               PreparedStatement ps = DbConnect.connect().prepareStatement("insert into booking values(bookingseq.nextval,?,sysdate,?)");
+               ps.setString(1, mobile);
+               ps.setString(2, otp);
+               ps.executeUpdate();
                 out.println(mobile);
                 session.setAttribute("mobile", mobile);
                 session.setAttribute("otp", otp);
@@ -49,6 +50,7 @@
                     <label for="exampleFormControlInput1" class="form-label">Enter mobile number</label>
                     <input name="mobile" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter mobile number" value="<%=mobile%>">
                 </div>
+                
                 <div class="col-md-3">
                     <input  type="submit" class="form-control btn btn-danger" id="exampleFormControlInput1" value="Get Otp">
                 </div>

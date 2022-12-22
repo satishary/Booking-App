@@ -4,8 +4,6 @@
 <%@include file="header.jsp" %>
 <body>
     <%@include file="menu.jsp" %>
-    <!--Content-->
-<body>
     <%
 
         String otpno = "", result = "", otp = "" + session.getAttribute("otp"), mobile = "";
@@ -22,18 +20,22 @@
             String mobileno = "" + session.getAttribute("mobile");
             otpno = request.getParameter("otp");
             result = "Not matched";
-            if (otp.equals(otpno)) {
+            if (otp.equals(otpno)) {    
+  PreparedStatement ps = DbConnect.connect().prepareStatement("insert into mobiles values(mobilesseq.nextval,?,?)");
+  ps.setString(1, mobile);
+  ps.setString(2, otp);
+  ps.executeUpdate();
                 result = "Matched";
-                
+
             }
-            
 
         }
-        
+
 
     %>
 <center>
-    <br>
+
+    <br>   
     <br>
     <%=result%>
     <h1>Validation</h1>
@@ -45,7 +47,7 @@
                 <input name="check" type="hidden"/>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Mobile number</label>
-                    <input name="mobile" type="number" class="form-control" id="exampleFormControlInput1" placeholder="mobile number" value="<%=mobile%>">
+                    <input name="mobile" type="text" class="form-control" id="exampleFormControlInput1" placeholder="mobile number" value="<%=mobile%>">
                 </div>
 
                 <div class="col">

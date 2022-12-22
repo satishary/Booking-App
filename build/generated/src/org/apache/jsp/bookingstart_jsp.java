@@ -100,7 +100,7 @@ public final class bookingstart_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("<body>\n");
       out.write("    ");
 
-        String otp = "", mobile = "", result = "";
+        String sno="",otp = "", mobile = "", bookingdate="",result = "";
         boolean ispostback = false;
         if (request.getParameter("check") != null) {
             ispostback = true;
@@ -108,11 +108,12 @@ public final class bookingstart_jsp extends org.apache.jasper.runtime.HttpJspBas
         }
         if (ispostback) {
             try {
-                otp = Utilities.otp(5);
                 mobile = request.getParameter("mobile");
-//                PreparedStatement ps = DbConnect.connect().prepareStatement("insert into bookings values=?");
-//                ps.setString(1, mobile);
-//                ps.executeUpdate();
+                 otp = Utilities.otp(6);
+               PreparedStatement ps = DbConnect.connect().prepareStatement("insert into booking values(bookingseq.nextval,?,sysdate,?)");
+               ps.setString(1, mobile);
+               ps.setString(2, otp);
+               ps.executeUpdate();
                 out.println(mobile);
                 session.setAttribute("mobile", mobile);
                 session.setAttribute("otp", otp);
@@ -120,7 +121,10 @@ public final class bookingstart_jsp extends org.apache.jasper.runtime.HttpJspBas
             } catch (Exception ex) {
                 System.out.println("ex");
                 result = ex.getMessage();
+                
             }
+            
+            
         }
     
       out.write("\n");
@@ -144,6 +148,7 @@ public final class bookingstart_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.print(mobile);
       out.write("\">\n");
       out.write("                </div>\n");
+      out.write("                \n");
       out.write("                <div class=\"col-md-3\">\n");
       out.write("                    <input  type=\"submit\" class=\"form-control btn btn-danger\" id=\"exampleFormControlInput1\" value=\"Get Otp\">\n");
       out.write("                </div>\n");

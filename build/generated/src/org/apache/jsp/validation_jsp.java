@@ -73,65 +73,96 @@ public final class validation_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </button>\n");
       out.write("    <div class=\"collapse navbar-collapse\" id=\"navbarNavDarkDropdown\">\n");
       out.write("      <ul class=\"navbar-nav\">\n");
+      out.write("          <li> <a class=\"nav-link\" href=\"bookingstart.jsp\">Booking Start</a></li>\n");
+      out.write("          \n");
+      out.write("        <li>\n");
+      out.write("            <a class=\"nav-link\" href=\"validation.jsp\">Validate OTP</a>\n");
+      out.write("        </li>\n");
       out.write("        <li class=\"nav-item dropdown\">\n");
       out.write("          <a class=\"nav-link dropdown-toggle\" href=\"#\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n");
       out.write("            Booking Start\n");
       out.write("          </a>\n");
+      out.write("            \n");
       out.write("          <ul class=\"dropdown-menu dropdown-menu-dark\">\n");
       out.write("              <li><a class=\"dropdown-item\" href=\"bookingstart.jsp\"> Start Booking</a></li>\n");
       out.write("              <li><a class=\"dropdown-item\" href=\"validation.jsp\">validation</a></li>\n");
       out.write("          </ul>\n");
       out.write("        </li>\n");
+      out.write("        \n");
+      out.write("            \n");
       out.write("      </ul>\n");
       out.write("    </div>\n");
       out.write("  </div>\n");
       out.write("</nav>");
       out.write("\n");
-      out.write("    <!--Content-->\n");
-      out.write("<body>\n");
       out.write("    ");
 
-        String otp = "",mobile="";
+
+        String otpno = "", result = "", otp = "" + session.getAttribute("otp"), mobile = "";
+        if (session.getAttribute("mobile") == null) {
+            mobile = "Not entered";
+        } else {
+            mobile = "" + session.getAttribute("mobile");
+        }
         boolean ispostback = false;
         if (request.getParameter("check") != null) {
-            ispostback = true;        
+            ispostback = true;
         }
-        
-        
+        if (ispostback) {
+            String mobileno = "" + session.getAttribute("mobile");
+            otpno = request.getParameter("otp");
+            result = "Not matched";
+            if (otp.equals(otpno)) {    
+  PreparedStatement ps = DbConnect.connect().prepareStatement("insert into mobiles values(mobilesseq.nextval,?,?)");
+  ps.setString(1, mobile);
+  ps.setString(2, otp);
+  ps.executeUpdate();
+                result = "Matched";
+
+            }
+
+        }
+
+
     
       out.write("\n");
-      out.write("    <center>\n");
-      out.write("          <br>\n");
+      out.write("<center>\n");
+      out.write("\n");
+      out.write("    <br>   \n");
       out.write("    <br>\n");
+      out.write("    ");
+      out.print(result);
+      out.write("\n");
       out.write("    <h1>Validation</h1>\n");
       out.write("    <div class=\"container col-md-3\">\n");
       out.write("        <div class=\"row\">\n");
       out.write("            <div class=\"col-md-3\"></div\n");
       out.write("            <div class=\"col-md-6\"></div>\n");
-      out.write("    <form method=\"post\">\n");
-      out.write("        <input name=\"check\" type=\"hidden\"/>\n");
-      out.write("        <div class=\"mb-3\">\n");
-      out.write("  <label for=\"exampleFormControlInput1\" class=\"form-label\">Mobile number</label>\n");
-      out.write("  <input name=\"number\" type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"mobile number\" value=\"");
+      out.write("            <form method=\"post\">\n");
+      out.write("                <input name=\"check\" type=\"hidden\"/>\n");
+      out.write("                <div class=\"mb-3\">\n");
+      out.write("                    <label for=\"exampleFormControlInput1\" class=\"form-label\">Mobile number</label>\n");
+      out.write("                    <input name=\"mobile\" type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"mobile number\" value=\"");
       out.print(mobile);
       out.write("\">\n");
-      out.write("</div>\n");
-      out.write("  \n");
-      out.write(" <div class=\"col\">\n");
-      out.write("  <label for=\"exampleFormControlInput1\" class=\"form-label\">Enter OTP</label>\n");
-      out.write("  <input name=\"otp\" name=\"text\" readonly type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"Enter OTP\"value=\"");
-      out.print(otp);
+      out.write("                </div>\n");
+      out.write("\n");
+      out.write("                <div class=\"col\">\n");
+      out.write("                    <label for=\"exampleFormControlInput1\" class=\"form-label\">OTP</label>\n");
+      out.write("                    <input name=\"otp\" type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" placeholder=\"otp\" value=\"");
+      out.print(otpno);
       out.write("\">\n");
-      out.write("</div>\n");
-      out.write("<br>\n");
-      out.write("<div class=\"col-md-3\">\n");
-      out.write("    <input type=\"submit\"class=\"form-control btn btn-primary\">\n");
-      out.write("</div>\n");
-      out.write("        <br>\n");
-      out.write("    </form>\n");
-      out.write("</body>\n");
-      out.write("</html>\n");
-      out.write("</center>\n");
+      out.write("                </div>\n");
+      out.write("                <br>\n");
+      out.write("                <div class=\"col-md-3\">\n");
+      out.write("                    <input type=\"submit\"class=\"form-control btn btn-primary\">\n");
+      out.write("                </div>\n");
+      out.write("                <br>\n");
+      out.write("            </form>\n");
+      out.write("            </body>\n");
+      out.write("            </html>\n");
+      out.write("            </center>\n");
+      out.write("            ");
       out.write(" <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4\" crossorigin=\"anonymous\"></script>\n");
       out.write("  </body>\n");
       out.write("</html>");
